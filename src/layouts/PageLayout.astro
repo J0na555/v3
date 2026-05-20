@@ -21,10 +21,6 @@ const { title, description } = Astro.props;
 	</div>
 </BaseLayout>
 
-<style>
-	.wrap {
-		max-width: 72rem;
-		margin: 0 auto;
-		padding: 2rem 1.5rem;
-	}
+<style is:global>
+	@import '../styles/prose.css';
 </style>
