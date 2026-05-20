@@ -9,7 +9,15 @@ export const navItems: NavItem[] = [
 	{ href: '/writing/', label: 'Writing' },
 ];
 
+function normalizePath(path: string): string {
+	const withLeading = path.startsWith('/') ? path : `/${path}`;
+	if (withLeading === '/') return '/';
+	return withLeading.endsWith('/') ? withLeading : `${withLeading}/`;
+}
+
 export function isActive(pathname: string, href: string): boolean {
-	const normalized = href.endsWith('/') ? href : `${href}/`;
-	return pathname === normalized || pathname.startsWith(normalized);
+	const current = normalizePath(pathname);
+	const target = normalizePath(href);
+	if (current === target) return true;
+	return current.startsWith(target) && target !== '/';
 }

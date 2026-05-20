@@ -4,11 +4,30 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SocialFooter from '../components/SocialFooter.astro';
 ---
 
-<HomeLayout title="Jonas">
+<HomeLayout title="Jonas — Portfolio">
 	<SiteHeader />
 	<main class="main">
-		<h1>Jonas</h1>
-		<p>Portfolio home — content from prototypes goes here.</p>
+		<div class="main-top">
+			<p class="eyebrow">Software · backend · full-stack</p>
+			<h1 class="greeting">Hey, I'm Yonas.</h1>
+			<div class="intro">
+				<p>
+					I'm a software engineer with a passion for building web products end to end. I'm interested in APIs, databases, and interfaces.
+					<a href="/about/" class="link-accent">More about me →</a>
+				</p>
+				<p class="status-pill">Available for new projects</p>
+			</div>
+			<div class="actions">
+				<p>
+					<a
+						href="/Yonas_Girma_Resume.pdf"
+						class="link-accent"
+						target="_blank"
+						rel="noopener noreferrer">Download my resume</a
+					>
+				</p>
+			</div>
+		</div>
 	</main>
 	<SocialFooter />
 </HomeLayout>
