@@ -117,6 +117,21 @@ h1 {
 	border: 1px solid var(--border);
 	border-radius: 2px;
 	color: var(--muted);
+	transition:
+		color 0.14s,
+		border-color 0.14s,
+		background 0.14s;
+}
+
+.skills span:hover {
+	color: var(--fg);
+	border-color: var(--muted);
+	background: var(--pill-bg);
+}
+
+html:not(.theme-light) .skills span:hover {
+	color: var(--accent);
+	border-color: var(--accent);
 }
 
 /* Work listing */

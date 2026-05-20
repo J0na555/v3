@@ -1,0 +1,11 @@
+---
+interface Props {
+	tags: string[];
+}
+
+const { tags } = Astro.props;
+---
+
+<div class="skills" aria-label="Technologies">
+	{tags.map((tag) => <span>{tag}</span>)}
+</div>

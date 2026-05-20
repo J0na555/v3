@@ -140,12 +140,13 @@ body:has(.page) a {
 	pointer-events: none;
 }
 
-html:not(.theme-light) .heatmap-graph img {
-	filter: invert(1) grayscale(1);
+/* Monochrome chart: black squares on white canvas (light), inverted in dark */
+html.theme-light .heatmap-graph img {
+	filter: none;
 }
 
-html.theme-light .heatmap-graph img {
-	filter: grayscale(1);
+html:not(.theme-light) .heatmap-graph img {
+	filter: invert(1);
 }
 
 .page .page-foot,

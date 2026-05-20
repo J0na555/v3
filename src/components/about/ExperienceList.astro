@@ -1,0 +1,27 @@
+---
+import type { ExperienceItem } from '../../data/about';
+
+interface Props {
+	items: ExperienceItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="exp-list">
+	{
+		items.map((item) => (
+			<li class="exp-item">
+				<div class="exp-head">
+					<span class="exp-title">{item.title}</span>
+					<span class="exp-date">{item.date}</span>
+				</div>
+				<ul>
+					{item.bullets.map((bullet) => (
+						<li>{bullet}</li>
+					))}
+				</ul>
+			</li>
+		))
+	}
+</ul>

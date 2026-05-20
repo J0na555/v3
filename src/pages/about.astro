@@ -1,8 +1,43 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import ExperienceList from '../components/about/ExperienceList.astro';
+import StackPills from '../components/about/StackPills.astro';
+import { aboutMeta, focusItems, experience, stack } from '../data/about';
 ---
 
-<PageLayout title="About — Jonas">
-	<h1>About</h1>
-	<p>About page content goes here.</p>
+<PageLayout
+	title="About — Jonas"
+	description={aboutMeta.lede}
+>
+	<h1>{aboutMeta.title}</h1>
+	<p class="lede">{aboutMeta.lede}</p>
+
+	<section class="block" aria-labelledby="focus-heading">
+		<h2 id="focus-heading">What I do</h2>
+		{
+			focusItems.map((item, i) => (
+				<p class:list={{ lead: i === 0 }}>
+					<strong>{item.label}</strong> — {item.body}
+				</p>
+			))
+		}
+	</section>
+
+	<section class="block" aria-labelledby="exp-heading">
+		<h2 id="exp-heading">Experience</h2>
+		<ExperienceList items={experience} />
+	</section>
+
+	<section class="block" aria-labelledby="stack-heading">
+		<h2 id="stack-heading">Stack</h2>
+		<StackPills tags={stack} />
+	</section>
+
+	<p>
+		<a href={aboutMeta.resumeHref} class="link-accent" target="_blank" rel="noopener noreferrer">
+			{aboutMeta.resumeLabel}
+		</a>
+	</p>
+
+	<a href="/" class="back">← Home</a>
 </PageLayout>

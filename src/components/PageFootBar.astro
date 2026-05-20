@@ -1,0 +1,33 @@
+---
+import SocialFooter from './SocialFooter.astro';
+
+interface Props {
+	showCta?: boolean;
+}
+
+const { showCta = false } = Astro.props;
+---
+
+<div class="foot-bar">
+	<div class="foot-left">
+		{
+			showCta && (
+				<p class="foot-cta">
+					<span class="arrow">→</span> or explore
+					<a href="/work/" class="link-accent">
+						selected work
+					</a>
+				</p>
+			)
+		}
+		<p class="foot-copy">© 2026 Jonas</p>
+	</div>
+	<div class="foot-right">
+		<div class="foot-mark" aria-hidden="true">
+			<span>⟨</span>
+			<span class="glyph">JG</span>
+			<span>⟩</span>
+		</div>
+		<SocialFooter />
+	</div>
+</div>
