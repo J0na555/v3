@@ -141,11 +141,11 @@ body:has(.page) a {
 }
 
 html:not(.theme-light) .heatmap-graph img {
-	filter: invert(1);
+	filter: invert(1) grayscale(1);
 }
 
 html.theme-light .heatmap-graph img {
-	filter: none;
+	filter: grayscale(1);
 }
 
 .page .page-foot,
@@ -162,6 +162,10 @@ html.theme-light .heatmap-graph img {
 
 .page .foot-left {
 	gap: 0.85rem;
+}
+
+.page .foot-mark {
+	opacity: 0.55;
 }
 
 /* Home theme accents — zinc monochrome */

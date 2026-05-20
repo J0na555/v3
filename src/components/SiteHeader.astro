@@ -3,10 +3,11 @@ import { navItems, isActive } from '../lib/nav';
 import ThemeToggle from './ThemeToggle.astro';
 
 const pathname = Astro.url.pathname;
+const isHome = pathname === '/' || pathname === '/index.html';
 ---
 
 <header class="site-head">
-	<a href="/" class="site-logo">Jonas</a>
+	<a href="/" class="site-logo" aria-current={isHome ? 'page' : undefined}>Jonas</a>
 	<div class="head-end">
 		<nav aria-label="Primary">
 			{

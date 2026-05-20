@@ -1,8 +1,8 @@
 ---
 import HomeLayout from '../layouts/HomeLayout.astro';
 import GitHubHeatmap from '../components/home/GitHubHeatmap.astro';
+import HomeFooter from '../components/home/HomeFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
-import SocialFooter from '../components/SocialFooter.astro';
 ---
 
 <HomeLayout title="Jonas — Portfolio">
@@ -10,10 +10,11 @@ import SocialFooter from '../components/SocialFooter.astro';
 	<main class="main">
 		<div class="main-top">
 			<p class="eyebrow">Software · backend · full-stack</p>
-			<h1 class="greeting">Hey, I'm Yonas.</h1>
+			<h1 class="greeting">Hey — I'm Jonas.</h1>
 			<div class="intro">
 				<p>
-					I'm a software engineer with a passion for building web products end to end. I'm interested in APIs, databases, and interfaces.
+					I build web products end to end — APIs, databases, and interfaces. Open
+					to full-time roles and freelance.
 					<a href="/about/" class="link-accent">More about me →</a>
 				</p>
 				<p class="status-pill">Available for new projects</p>
@@ -31,5 +32,5 @@ import SocialFooter from '../components/SocialFooter.astro';
 		</div>
 		<GitHubHeatmap />
 	</main>
-	<SocialFooter />
+	<HomeFooter />
 </HomeLayout>
