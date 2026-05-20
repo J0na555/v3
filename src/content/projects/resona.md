@@ -2,6 +2,12 @@
 title: Resona
 role: Full stack · Side project
 dek: Audio-focused web application — personal library and playback patterns.
+filterTags:
+  - fullstack
+cardTags:
+  - Full stack
+figure: App preview
+order: 2
 links:
   - label: Source
     href: https://github.com/J0na555

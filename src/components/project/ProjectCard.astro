@@ -6,29 +6,22 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { title, year, dek } = project.data;
+const { title, dek, filterTags, cardTags } = project.data;
+const tagsAttr = filterTags.join(' ');
 ---
 
-<article class="project-card">
-	<a href={`/work/${project.id}/`}>
-		<h2>{title}</h2>
-		{year && <p class="meta">{year}</p>}
-		{dek && <p class="dek">{dek}</p>}
-	</a>
-</article>
-
-<style>
-	.project-card {
-		margin-bottom: 1.5rem;
+<li class="project-card" data-tags={tagsAttr}>
+	<h2>
+		<a href={`/work/${project.id}/`}>{title}</a>
+	</h2>
+	{dek && <p>{dek}</p>}
+	{
+		cardTags.length > 0 && (
+			<div class="card-tags">
+				{cardTags.map((tag) => (
+					<span>{tag}</span>
+				))}
+			</div>
+		)
 	}
-
-	.project-card a {
-		text-decoration: none;
-	}
-
-	.meta,
-	.dek {
-		color: var(--muted);
-		margin: 0.25rem 0 0;
-	}
-</style>
+</li>

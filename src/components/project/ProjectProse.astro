@@ -4,60 +4,65 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
 	project: CollectionEntry<'projects'>;
+	hasNotes?: boolean;
 }
 
-const { project } = Astro.props;
-const { title, year, role, dek, stack, links } = project.data;
+const { project, hasNotes = false } = Astro.props;
+const { title, role, dek, stack, links, figure, notes } = project.data;
 const { Content } = await render(project);
+
+const showNotes = Boolean(notes && hasNotes);
+const showLinks = (links && links.length > 0) || showNotes;
 ---
 
-<article class="project-prose prose">
-	<header>
-		<h1>{title}</h1>
-		{(year || role) && (
-			<p class="eyebrow">
-				{[year, role].filter(Boolean).join(' · ')}
-			</p>
-		)}
-		{dek && <p class="dek">{dek}</p>}
-	</header>
-
-	{stack && stack.length > 0 && (
-		<ul class="stack">
-			{stack.map((item) => (
-				<li>{item}</li>
-			))}
-		</ul>
-	)}
-
-	{links && links.length > 0 && (
-		<p class="links">
-			{links.map((link) => (
-				<a href={link.href} target="_blank" rel="noreferrer">
-					{link.label}
-				</a>
-			))}
-		</p>
-	)}
-
-	<Content />
-</article>
-
-<style>
-	.eyebrow,
-	.dek {
-		color: var(--muted);
+<div class="project-prose">
+	<a href="/work/" class="back">← All work</a>
+	{role && <p class="meta-row">{role}</p>}
+	<h1>{title}</h1>
+	{dek && <p class="dek">{dek}</p>}
+	<figure class="figure" role="img" aria-label="Project preview">
+		{figure ?? 'Preview'}
+	</figure>
+	<article class="prose">
+		<Content />
+		{
+			stack && stack.length > 0 && (
+				<section>
+					<h2>Stack</h2>
+					<div class="stack-tags">
+						{stack.map((item) => (
+							<span>{item}</span>
+						))}
+					</div>
+				</section>
+			)
+		}
+	</article>
+	{
+		showLinks && (
+			<nav class="project-links">
+				<span class="label">Links</span>
+				{
+					links?.map((link, index) => (
+						<>
+							{index > 0 && <span class="sep">·</span>}
+							<a href={link.href} target="_blank" rel="noopener noreferrer">
+								{link.label}
+							</a>
+						</>
+					))
+				}
+				{
+					showNotes && (
+						<>
+							{(links?.length ?? 0) > 0 && <span class="sep">·</span>}
+							<a href={`/writing/${notes}/`} class="is-accent">
+								Notes
+							</a>
+						</>
+					)
+				}
+			</nav>
+		)
 	}
-
-	.stack {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		list-style: none;
-		padding: 0;
-	}
-
-	.links a + a {
-		margin-left: 1rem;
-	}
-</style>
+</div>

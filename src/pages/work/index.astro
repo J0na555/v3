@@ -2,17 +2,86 @@
 import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
 import ProjectCard from '../../components/project/ProjectCard.astro';
+import ProjectFilters from '../../components/project/ProjectFilters.astro';
 
-const projects = (await getCollection('projects')).sort((a, b) =>
-	a.data.title.localeCompare(b.data.title),
+const projects = (await getCollection('projects')).sort(
+	(a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
 );
 ---
 
 <PageLayout title="Work — Jonas">
-	<h1>Work</h1>
-	<section>
+	<h1>Projects</h1>
+	<p class="intro">
+		Selected work from my dev portfolio — extensions, full-stack apps, and experiments.
+	</p>
+	<ProjectFilters />
+	<ul class="project-grid" id="project-grid">
 		{projects.map((project) => (
 			<ProjectCard project={project} />
 		))}
-	</section>
+	</ul>
+
+	<script>
+		function initProjectFilters() {
+			const active = new Set(['all']);
+			const grid = document.getElementById('project-grid');
+			const filterRow = document.getElementById('project-filters');
+			if (!grid || !filterRow) return;
+
+			const cards = Array.from(
+				grid.querySelectorAll<HTMLElement>('.project-card'),
+			);
+			const buttons = filterRow.querySelectorAll<HTMLButtonElement>('.tag');
+
+			function syncButtons() {
+				buttons.forEach((button) => {
+					const tag = button.dataset.tag;
+					if (!tag) return;
+					button.classList.toggle('is-on', active.has(tag));
+				});
+			}
+
+			function applyFilters() {
+				cards.forEach((card) => {
+					if (active.has('all')) {
+						card.hidden = false;
+						return;
+					}
+					const tags = (card.dataset.tags ?? '').split(/\s+/).filter(Boolean);
+					card.hidden = !tags.some((tag) => active.has(tag));
+				});
+			}
+
+			filterRow.addEventListener('click', (event) => {
+				const button = (event.target as Element).closest<HTMLButtonElement>(
+					'.tag',
+				);
+				if (!button) return;
+
+				const tag = button.dataset.tag;
+				if (!tag) return;
+
+				if (tag === 'all') {
+					active.clear();
+					active.add('all');
+				} else {
+					active.delete('all');
+					if (active.has(tag)) active.delete(tag);
+					else active.add(tag);
+					if (active.size === 0) active.add('all');
+				}
+
+				syncButtons();
+				applyFilters();
+			});
+
+			syncButtons();
+			applyFilters();
+		}
+
+		initProjectFilters();
+		document.addEventListener('astro:page-load', initProjectFilters);
+	</script>
+
+	<a href="/" class="back prose-page">← Home</a>
 </PageLayout>

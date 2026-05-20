@@ -2,6 +2,14 @@
 title: Anime Wrapped
 role: Data · Side project
 dek: Wrapped-style stats and summaries for anime viewing data.
+filterTags:
+  - frontend
+  - experiment
+cardTags:
+  - Data
+  - Experiment
+figure: Data viz preview
+order: 6
 ---
 
 ## About

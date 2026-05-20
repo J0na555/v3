@@ -2,6 +2,15 @@
 title: CP-Lockin
 role: Browser extension · In development
 dek: Browser extension syncing Codeforces and LeetCode — streaks, goals, background sync.
+filterTags:
+  - extension
+  - frontend
+cardTags:
+  - Extension
+  - JavaScript
+figure: Extension · Codeforces + LeetCode
+order: 1
+notes: cp-lockin
 stack:
   - JavaScript
   - Browser APIs

@@ -18,6 +18,13 @@ const projects = defineCollection({
 				}),
 			)
 			.optional(),
+		filterTags: z.array(
+			z.enum(['extension', 'fullstack', 'frontend', 'experiment']),
+		),
+		cardTags: z.array(z.string()),
+		figure: z.string().optional(),
+		notes: z.string().optional(),
+		order: z.number().optional(),
 	}),
 });
 

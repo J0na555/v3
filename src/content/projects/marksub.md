@@ -2,6 +2,12 @@
 title: Marksub
 role: Tooling · Side project
 dek: Developer utility for markdown and submission workflows.
+filterTags:
+  - fullstack
+cardTags:
+  - Tooling
+figure: Tool preview
+order: 4
 ---
 
 ## About

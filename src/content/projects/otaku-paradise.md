@@ -2,6 +2,12 @@
 title: Otaku Paradise
 role: Full stack · Side project
 dek: Community and media-oriented full-stack project from my portfolio catalog.
+filterTags:
+  - fullstack
+cardTags:
+  - Full stack
+figure: App preview
+order: 5
 ---
 
 ## About

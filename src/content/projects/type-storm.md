@@ -2,6 +2,14 @@
 title: Type Storm
 role: Frontend · Experiment
 dek: Typing practice experiment with real-time feedback and minimal UI.
+filterTags:
+  - frontend
+  - experiment
+cardTags:
+  - Frontend
+  - Experiment
+figure: UI preview
+order: 3
 ---
 
 ## About

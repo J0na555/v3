@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry, render } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
 import ProjectProse from '../../components/project/ProjectProse.astro';
 
@@ -16,8 +16,14 @@ const project = await getEntry('projects', slug!);
 if (!project) {
 	return Astro.redirect('/work/');
 }
+
+const writing = await getCollection('writing');
+const writingSlugs = new Set(writing.map((entry) => entry.id));
+const hasNotes = project.data.notes
+	? writingSlugs.has(project.data.notes)
+	: false;
 ---
 
-<PageLayout title={`${project.data.title} — Jonas`}>
-	<ProjectProse project={project} />
+<PageLayout title={`${project.data.title} — Jonas`} narrow>
+	<ProjectProse project={project} hasNotes={hasNotes} />
 </PageLayout>

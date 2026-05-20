@@ -6,13 +6,14 @@ import Footer from '../components/Footer.astro';
 interface Props {
 	title?: string;
 	description?: string;
+	narrow?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, narrow = false } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-	<div class="wrap">
+	<div class:list={['wrap', narrow && 'wrap--narrow']}>
 		<SiteHeader />
 		<main>
 			<slot />
