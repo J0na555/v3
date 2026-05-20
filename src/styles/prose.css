@@ -1,0 +1,12 @@
+.prose {
+	max-width: 65ch;
+}
+
+.prose p {
+	margin: 0 0 1em;
+}
+
+.prose a {
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+}

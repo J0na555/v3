@@ -1,0 +1,44 @@
+<button type="button" class="theme-toggle" aria-label="Toggle theme">
+	<span aria-hidden="true">◐</span>
+</button>
+
+<script>
+	const storageKey = 'theme';
+
+	function applyTheme(theme: 'light' | 'dark') {
+		document.documentElement.classList.toggle('theme-light', theme === 'light');
+	}
+
+	function getPreferredTheme(): 'light' | 'dark' {
+		const stored = localStorage.getItem(storageKey);
+		if (stored === 'light' || stored === 'dark') return stored;
+		return window.matchMedia('(prefers-color-scheme: light)').matches
+			? 'light'
+			: 'dark';
+	}
+
+	applyTheme(getPreferredTheme());
+
+	document.querySelectorAll('.theme-toggle').forEach((button) => {
+		button.addEventListener('click', () => {
+			const next =
+				document.documentElement.classList.contains('theme-light')
+					? 'dark'
+					: 'light';
+			localStorage.setItem(storageKey, next);
+			applyTheme(next);
+		});
+	});
+</script>
+
+<style>
+	.theme-toggle {
+		margin-left: auto;
+		background: none;
+		border: 1px solid var(--muted);
+		color: inherit;
+		cursor: pointer;
+		padding: 0.25rem 0.5rem;
+		border-radius: 0.25rem;
+	}
+</style>

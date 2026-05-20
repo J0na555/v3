@@ -1,0 +1,36 @@
+---
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	post: CollectionEntry<'writing'>;
+}
+
+const { post } = Astro.props;
+const { title, date, dek } = post.data;
+const { Content } = await render(post);
+---
+
+<article class="writing-article prose">
+	<header>
+		<h1>{title}</h1>
+		<time datetime={date.toISOString()}>
+			{date.toLocaleDateString('en-US', {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+			})}
+		</time>
+		{dek && <p class="dek">{dek}</p>}
+	</header>
+	<Content />
+</article>
+
+<style>
+	@import '../../styles/prose.css';
+
+	header time,
+	.dek {
+		color: var(--muted);
+	}
+</style>

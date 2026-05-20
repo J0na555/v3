@@ -1,0 +1,58 @@
+---
+import { navItems, isActive } from '../lib/nav';
+import ThemeToggle from './ThemeToggle.astro';
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="site-header">
+	<a class="logo" href="/">Jonas</a>
+	<nav aria-label="Primary">
+		<ul>
+			{
+				navItems.map((item) => (
+					<li>
+						<a
+							href={item.href}
+							aria-current={isActive(pathname, item.href) ? 'page' : undefined}
+						>
+							{item.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+	<ThemeToggle />
+</header>
+
+<style>
+	.site-header {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+		margin-bottom: 2rem;
+	}
+
+	.logo {
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	nav ul {
+		display: flex;
+		gap: 1rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	nav a {
+		text-decoration: none;
+		color: var(--muted);
+	}
+
+	nav a[aria-current='page'] {
+		color: var(--fg);
+	}
+</style>

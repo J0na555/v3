@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import ProjectCard from '../../components/project/ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) =>
+	a.data.title.localeCompare(b.data.title),
+);
+---
+
+<PageLayout title="Work — Jonas">
+	<h1>Work</h1>
+	<section>
+		{projects.map((project) => (
+			<ProjectCard project={project} />
+		))}
+	</section>
+</PageLayout>

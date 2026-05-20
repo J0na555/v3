@@ -1,0 +1,65 @@
+---
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, year, role, dek, stack, links } = project.data;
+const { Content } = await render(project);
+---
+
+<article class="project-prose prose">
+	<header>
+		<h1>{title}</h1>
+		{(year || role) && (
+			<p class="eyebrow">
+				{[year, role].filter(Boolean).join(' · ')}
+			</p>
+		)}
+		{dek && <p class="dek">{dek}</p>}
+	</header>
+
+	{stack && stack.length > 0 && (
+		<ul class="stack">
+			{stack.map((item) => (
+				<li>{item}</li>
+			))}
+		</ul>
+	)}
+
+	{links && links.length > 0 && (
+		<p class="links">
+			{links.map((link) => (
+				<a href={link.href} target="_blank" rel="noreferrer">
+					{link.label}
+				</a>
+			))}
+		</p>
+	)}
+
+	<Content />
+</article>
+
+<style>
+	@import '../../styles/prose.css';
+
+	.eyebrow,
+	.dek {
+		color: var(--muted);
+	}
+
+	.stack {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		list-style: none;
+		padding: 0;
+	}
+
+	.links a + a {
+		margin-left: 1rem;
+	}
+</style>

@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import WritingList from '../../components/writing/WritingList.astro';
+
+const posts = (await getCollection('writing')).sort(
+	(a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<PageLayout title="Writing — Jonas">
+	<h1>Writing</h1>
+	<WritingList posts={posts} />
+</PageLayout>
