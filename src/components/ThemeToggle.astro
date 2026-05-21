@@ -12,6 +12,7 @@
 
 <script>
 	import { THEME_STORAGE_KEY, applyDocumentTheme } from '../lib/theme';
+	import { playThemeToggleSound } from '../lib/theme-sound';
 
 	function syncToggleLabels(light: boolean) {
 		const label = light ? 'Switch to dark mode' : 'Switch to light mode';
@@ -36,6 +37,7 @@
 			const next = !document.documentElement.classList.contains('theme-light');
 			localStorage.setItem(THEME_STORAGE_KEY, next ? 'light' : 'dark');
 			setTheme(next);
+			playThemeToggleSound();
 		});
 	});
 </script>
