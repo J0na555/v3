@@ -23,6 +23,22 @@ const { title = 'Jonas', description = 'Portfolio' } = Astro.props;
 				} catch (_) {}
 			})();
 		</script>
+		<style is:inline>
+			.page {
+				max-width: 42rem;
+				margin: 0 auto;
+				padding: 3rem 1.25rem clamp(0.75rem, 1.5vh, 1rem);
+			}
+			@media (min-width: 768px) {
+				.page {
+					padding: 4rem 0 clamp(0.75rem, 1.5vh, 1rem);
+				}
+			}
+			.page .site-head,
+			.page .site-header {
+				margin-bottom: 0;
+			}
+		</style>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="color-scheme" content="dark light" />
 		<meta name="description" content={description} />
