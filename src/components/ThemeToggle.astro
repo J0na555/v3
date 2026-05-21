@@ -1,5 +1,5 @@
 <button type="button" class="theme-btn" aria-label="Switch to light mode">
-	<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" hidden>
+	<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
 		<circle cx="12" cy="12" r="4"></circle>
 		<path
 			d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
@@ -11,36 +11,31 @@
 </button>
 
 <script>
-	import {
-		THEME_STORAGE_KEY,
-		applyDocumentTheme,
-		prefersLightTheme,
-	} from '../lib/theme';
+	import { THEME_STORAGE_KEY, applyDocumentTheme } from '../lib/theme';
 
-	function applyTheme(button: Element, light: boolean) {
+	function syncToggleLabels(light: boolean) {
+		const label = light ? 'Switch to dark mode' : 'Switch to light mode';
+		document.querySelectorAll('.theme-btn').forEach((button) => {
+			button.setAttribute('aria-label', label);
+		});
+	}
+
+	function setTheme(light: boolean) {
 		applyDocumentTheme(light);
-		const sun = button.querySelector('.icon-sun');
-		const moon = button.querySelector('.icon-moon');
-		if (sun instanceof SVGElement) sun.hidden = !light;
-		if (moon instanceof SVGElement) moon.hidden = light;
-		button.setAttribute(
-			'aria-label',
-			light ? 'Switch to dark mode' : 'Switch to light mode',
-		);
+		syncToggleLabels(light);
 		document.dispatchEvent(
 			new CustomEvent('themechange', { detail: { light } }),
 		);
 	}
 
-	const light = prefersLightTheme();
 	document.querySelectorAll('.theme-btn').forEach((button) => {
-		applyTheme(button, light);
+		syncToggleLabels(
+			document.documentElement.classList.contains('theme-light'),
+		);
 		button.addEventListener('click', () => {
 			const next = !document.documentElement.classList.contains('theme-light');
 			localStorage.setItem(THEME_STORAGE_KEY, next ? 'light' : 'dark');
-			document.querySelectorAll('.theme-btn').forEach((btn) => {
-				applyTheme(btn, next);
-			});
+			setTheme(next);
 		});
 	});
 </script>
