@@ -10,5 +10,8 @@ const posts = (await getCollection('writing')).sort(
 
 <PageLayout title="Writing — Jonas">
 	<h1>Writing</h1>
+	<p class="intro">
+		Notes and lessons from projects. What I learned building them, not just what shipped.
+	</p>
 	<WritingList posts={posts} />
 </PageLayout>

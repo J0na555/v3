@@ -404,15 +404,7 @@ html.theme-light .project-links a.is-accent {
 	text-decoration: none;
 }
 
-.writing-list a {
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
-	gap: 1rem;
-}
-
-.note-link h2,
-.writing-list .title {
+.note-link h2 {
 	font-size: 1.0625rem;
 	font-weight: 500;
 	margin-bottom: 0.35rem;
@@ -424,8 +416,7 @@ html.theme-light .project-links a.is-accent {
 	max-width: 52ch;
 }
 
-.note-link .meta,
-.writing-list time {
+.note-link .meta {
 	font-family: ui-monospace, Menlo, monospace;
 	font-size: 12px;
 	color: var(--muted);
@@ -433,17 +424,13 @@ html.theme-light .project-links a.is-accent {
 	letter-spacing: 0.04em;
 }
 
-.writing-list time {
-	margin-top: 0;
-	flex-shrink: 0;
-}
-
 .note-article,
 .writing-article {
 	display: block;
 }
 
-.note-article .back-note {
+.note-article .back-note,
+.writing-article .back-note {
 	font-size: 14px;
 	color: var(--muted);
 	display: inline-block;
@@ -466,14 +453,6 @@ html.theme-light .project-links a.is-accent {
 .note-article .prose h2,
 .writing-article .prose h2 {
 	margin: 2rem 0 0.75rem;
-}
-
-.writing-article header time {
-	font-family: ui-monospace, Menlo, monospace;
-	font-size: 12px;
-	color: var(--muted);
-	display: block;
-	margin-bottom: 0.5rem;
 }
 
 .empty-notes {

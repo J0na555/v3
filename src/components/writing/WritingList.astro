@@ -8,59 +8,25 @@ interface Props {
 const { posts } = Astro.props;
 ---
 
-<ul class="writing-list">
-	{
-		posts.map((post) => (
-			<li>
-				<a href={`/writing/${post.id}/`}>
-					<span class="entry">
-						<span class="title">{post.data.title}</span>
-						{post.data.dek && <span class="dek">{post.data.dek}</span>}
-					</span>
-					<time datetime={post.data.date.toISOString()}>
-						{post.data.date.toLocaleDateString('en-US', {
-							year: 'numeric',
-							month: 'short',
-							day: 'numeric',
-						})}
-					</time>
-				</a>
-			</li>
-		))
-	}
-</ul>
-
-<style>
-	.writing-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-
-	.writing-list li + li {
-		margin-top: 1rem;
-	}
-
-	.writing-list a {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		gap: 1rem;
-		text-decoration: none;
-	}
-
-	.entry {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-	}
-
-	.dek {
-		color: var(--muted);
-		font-size: 0.9rem;
-	}
-
-	.writing-list time {
-		color: var(--muted);
-	}
-</style>
+{
+	posts.length === 0 ? (
+		<p class="empty-notes">No notes published yet.</p>
+	) : (
+		<ul class="writing-list">
+			{
+				posts.map((post) => {
+					const displayTitle = post.data.title.replace(/^Notes — /, '');
+					return (
+						<li>
+							<a href={`/writing/${post.id}/`} class="note-link">
+								<h2>{displayTitle}</h2>
+								{post.data.dek && <p>{post.data.dek}</p>}
+								{post.data.meta && <span class="meta">{post.data.meta}</span>}
+							</a>
+						</li>
+					);
+				})
+			}
+		</ul>
+	)
+}
