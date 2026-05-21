@@ -11,6 +11,18 @@ const { title = 'Jonas', description = 'Portfolio' } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<script is:inline>
+			(function () {
+				try {
+					var stored = localStorage.getItem('theme');
+					var light =
+						stored === 'light' ||
+						(stored !== 'dark' &&
+							window.matchMedia('(prefers-color-scheme: light)').matches);
+					if (light) document.documentElement.classList.add('theme-light');
+				} catch (_) {}
+			})();
+		</script>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="color-scheme" content="dark light" />
 		<meta name="description" content={description} />

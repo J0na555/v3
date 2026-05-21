@@ -11,10 +11,14 @@
 </button>
 
 <script>
-	const storageKey = 'theme';
+	import {
+		THEME_STORAGE_KEY,
+		applyDocumentTheme,
+		prefersLightTheme,
+	} from '../lib/theme';
 
 	function applyTheme(button: Element, light: boolean) {
-		document.documentElement.classList.toggle('theme-light', light);
+		applyDocumentTheme(light);
 		const sun = button.querySelector('.icon-sun');
 		const moon = button.querySelector('.icon-moon');
 		if (sun instanceof SVGElement) sun.hidden = !light;
@@ -28,19 +32,12 @@
 		);
 	}
 
-	function getPreferredTheme(): boolean {
-		const stored = localStorage.getItem(storageKey);
-		if (stored === 'light') return true;
-		if (stored === 'dark') return false;
-		return window.matchMedia('(prefers-color-scheme: light)').matches;
-	}
-
-	const light = getPreferredTheme();
+	const light = prefersLightTheme();
 	document.querySelectorAll('.theme-btn').forEach((button) => {
 		applyTheme(button, light);
 		button.addEventListener('click', () => {
 			const next = !document.documentElement.classList.contains('theme-light');
-			localStorage.setItem(storageKey, next ? 'light' : 'dark');
+			localStorage.setItem(THEME_STORAGE_KEY, next ? 'light' : 'dark');
 			document.querySelectorAll('.theme-btn').forEach((btn) => {
 				applyTheme(btn, next);
 			});
