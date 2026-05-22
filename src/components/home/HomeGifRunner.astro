@@ -1,0 +1,54 @@
+---
+/** Themed cat walk — backgrounds match home page (#18181b dark, #fff light). */
+const catDark = '/gif/cat-dark.mp4';
+const catLight = '/gif/cat-light.mp4';
+---
+
+<div class="home-gif-track" aria-hidden="true">
+	<video
+		class="home-gif-runner home-gif-runner--dark"
+		src={catDark}
+		width={256}
+		height={192}
+		autoplay
+		loop
+		muted
+		playsinline
+		preload="metadata"
+	></video>
+	<video
+		class="home-gif-runner home-gif-runner--light"
+		src={catLight}
+		width={256}
+		height={192}
+		autoplay
+		loop
+		muted
+		playsinline
+		preload="metadata"
+	></video>
+</div>
+
+<script>
+	function syncCatVideos(light: boolean) {
+		document.querySelectorAll('.home-gif-runner').forEach((el) => {
+			if (!(el instanceof HTMLVideoElement)) return;
+			const show =
+				(light && el.classList.contains('home-gif-runner--light')) ||
+				(!light && el.classList.contains('home-gif-runner--dark'));
+			if (show) {
+				void el.play().catch(() => {});
+			} else {
+				el.pause();
+			}
+		});
+	}
+
+	const light = document.documentElement.classList.contains('theme-light');
+	syncCatVideos(light);
+
+	document.addEventListener('themechange', (e) => {
+		const detail = (e as CustomEvent<{ light: boolean }>).detail;
+		syncCatVideos(detail.light);
+	});
+</script>

@@ -1,6 +1,8 @@
 ---
 import HomeLayout from '../layouts/HomeLayout.astro';
 import GitHubHeatmap from '../components/home/GitHubHeatmap.astro';
+import HomeGifRunner from '../components/home/HomeGifRunner.astro';
+import HomeClip from '../components/home/HomeClip.astro';
 import HomeFooter from '../components/home/HomeFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 ---
@@ -31,6 +33,10 @@ import SiteHeader from '../components/SiteHeader.astro';
 			</div>
 		</div>
 		<GitHubHeatmap />
+		<div class="home-media-stack">
+			<!-- <HomeGifRunner /> -->
+			<HomeClip />
+		</div>
 	</main>
 	<HomeFooter />
 </HomeLayout>

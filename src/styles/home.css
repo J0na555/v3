@@ -117,7 +117,83 @@ body:has(.page) a {
 	max-height: 96px;
 	object-fit: contain;
 	object-position: left top;
+}
+
+/* Desktop-only: walking cat, then clip below (left-aligned) */
+.home-media-stack {
+	display: none;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	margin-top: 0.35rem;
+	margin-bottom: clamp(0.75rem, 1.5vh, 1rem);
+	flex-shrink: 0;
+}
+
+.home-gif-track {
+	position: relative;
+	width: 100%;
+	height: clamp(72px, 11vh, 100px);
+	overflow: hidden;
+	background-color: #18181b;
+}
+
+.home-clip {
+	display: block;
+	margin-top: 0.5rem;
+	width: auto;
+	max-width: min(320px, 100%);
+	max-height: clamp(120px, 18vh, 200px);
+	object-fit: contain;
+	object-position: left center;
 	pointer-events: none;
+}
+
+html.theme-light .home-gif-track {
+	background-color: #ffffff;
+}
+
+.home-gif-runner {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	height: 88%;
+	width: auto;
+	max-width: none;
+	object-fit: contain;
+	animation: home-gif-walk 12s linear infinite;
+	pointer-events: none;
+}
+
+html:not(.theme-light) .home-gif-runner--light {
+	display: none;
+}
+
+html.theme-light .home-gif-runner--dark {
+	display: none;
+}
+
+@keyframes home-gif-walk {
+	from {
+		left: 0;
+		transform: translate(-100%, -50%);
+	}
+	to {
+		left: 100%;
+		transform: translate(0, -50%);
+	}
+}
+
+@media (min-width: 768px) {
+	.home-media-stack {
+		display: flex;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.home-media-stack {
+		display: none !important;
+	}
 }
 
 /* Monochrome chart: black squares on white canvas (light), inverted in dark */
