@@ -1,17 +1,30 @@
 ---
 const clipSrc =
 	'/video/02177945205560000000000000000000000ffffac15d1c8c3be97.mp4';
+const catTypingSrc = '/video/cat typig.mp4';
 ---
 
-<video
-	class="home-clip"
-	src={clipSrc}
-	width={736}
-	height={544}
-	autoplay
-	loop
-	muted
-	playsinline
-	preload="metadata"
-	aria-hidden="true"
-></video>
+<div class="home-clip-row">
+	<video
+		class="home-clip home-clip--main"
+		src={clipSrc}
+		width={736}
+		height={544}
+		autoplay
+		loop
+		muted
+		playsinline
+		preload="metadata"
+		aria-hidden="true"
+	></video>
+	<video
+		class="home-clip home-clip--typing"
+		src={catTypingSrc}
+		autoplay
+		loop
+		muted
+		playsinline
+		preload="metadata"
+		aria-hidden="true"
+	></video>
+</div>

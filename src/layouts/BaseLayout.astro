@@ -1,4 +1,7 @@
 ---
+import '../styles/tokens.css';
+import '../styles/global.css';
+
 interface Props {
 	title?: string;
 	description?: string;
@@ -55,8 +58,3 @@ const { title = 'Jonas', description = 'Portfolio' } = Astro.props;
 		<slot />
 	</body>
 </html>
-
-<style is:global>
-	@import '../styles/tokens.css';
-	@import '../styles/global.css';
-</style>

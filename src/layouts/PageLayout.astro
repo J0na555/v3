@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import Footer from '../components/Footer.astro';
+import '../styles/prose.css';
 
 interface Props {
 	title?: string;
@@ -21,7 +22,3 @@ const { title, description, narrow = false } = Astro.props;
 		<Footer />
 	</div>
 </BaseLayout>
-
-<style is:global>
-	@import '../styles/prose.css';
-</style>
