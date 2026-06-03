@@ -40,6 +40,18 @@
   initial-value: #141418;
 }
 
+@property --code-bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #141418;
+}
+
+@property --code-border {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #27272a;
+}
+
 :root,
 html {
   color-scheme: dark;
@@ -52,6 +64,8 @@ html {
   --accent: #7eb8da;
   --pill-bg: #1c1c22;
   --surface: #141418;
+  --code-bg: #141418;
+  --code-border: #27272a;
   transition:
     --bg var(--theme-duration) var(--theme-ease),
     --fg var(--theme-duration) var(--theme-ease),
@@ -59,7 +73,9 @@ html {
     --border var(--theme-duration) var(--theme-ease),
     --accent var(--theme-duration) var(--theme-ease),
     --pill-bg var(--theme-duration) var(--theme-ease),
-    --surface var(--theme-duration) var(--theme-ease);
+    --surface var(--theme-duration) var(--theme-ease),
+    --code-bg var(--theme-duration) var(--theme-ease),
+    --code-border var(--theme-duration) var(--theme-ease);
 }
 
 html.theme-light {
@@ -71,6 +87,8 @@ html.theme-light {
   --accent: #000000;
   --pill-bg: #f5f5f5;
   --surface: #ffffff;
+  --code-bg: #f6f8fa;
+  --code-border: #e8e8e8;
 }
 
 @media (prefers-reduced-motion: reduce) {
