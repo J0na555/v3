@@ -3,6 +3,8 @@ export type ExperienceItem = {
   title: string;
   date: string;
   bullets: string[];
+  /** Rendered as `@<a>{label}</a>` after the title when present */
+  org?: { label: string; href: string };
 };
 
 export const aboutMeta = {
@@ -28,6 +30,16 @@ export const focusItems: FocusItem[] = [
 ];
 
 export const experience: ExperienceItem[] = [
+  {
+    title: "Co-founder & CTO",
+    org: { label: "melba", href: "https://melba.et" },
+    date: "2026 — Present",
+    bullets: [
+      "Lead end-to-end product development, including system architecture, backend APIs, and deployment.",
+      "Built and managed the technical team, defining engineering standards and overseeing code quality.",
+      "Integrated payment gateways and optimized platform performance for Ethiopia-based users.",
+    ],
+  },
   {
     title: "Software Engineering Trainee — A2SV (Africa to Silicon Valley)",
     date: "2024 — Present",

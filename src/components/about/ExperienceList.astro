@@ -13,7 +13,22 @@ const { items } = Astro.props;
 		items.map((item) => (
 			<li class="exp-item">
 				<div class="exp-head">
-					<span class="exp-title">{item.title}</span>
+					<span class="exp-title">
+						{item.title}
+						{item.org && (
+							<>
+								{' @'}
+								<a
+									href={item.org.href}
+									class="link-accent"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{item.org.label}
+								</a>
+							</>
+						)}
+					</span>
 					<span class="exp-date">{item.date}</span>
 				</div>
 				<ul>
