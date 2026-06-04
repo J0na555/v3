@@ -1,17 +1,38 @@
 ---
-title: Type Storm
-role: Frontend · Experiment
-dek: Typing practice experiment with real-time feedback and minimal UI.
+title: TypeStorm
+role: Creator · Side project
+dek: Terminal typing game for code snippets — WPM, accuracy, and per-level bests across Python, JavaScript, and Java.
 filterTags:
-  - frontend
-  - experiment
+  - fullstack
 cardTags:
-  - Frontend
-  - Experiment
-figure: UI preview
-order: 3
+  - CLI Tool
+figure: Terminal with syntax-highlighted snippet and typing metrics
+order: 6
+stack:
+  - Python
+  - Rich
+links:
+  - label: Source
+    href: https://github.com/J0na555/typestorm
 ---
 
 ## About
 
-A typing practice surface built to test real-time feedback and minimal UI. Document your goals and what shipped.
+TypeStorm is a terminal-based typing game where you practice real code snippets at five difficulty levels while tracking WPM, accuracy, and completion time.
+
+## Features
+
+- **Five levels** — Beginner through Master
+- **Multi-language snippets** — Python, JavaScript, and Java
+- **Round summary** — WPM, accuracy, and time per round; bests stored per level
+- **Immediate feedback** — Highlights the first mismatch in the snippet
+- **Syntax highlighting** — Language-aware rendering via Rich
+- **CLI flags** — Fixed level, round count, and score reset
+
+## Usage
+
+```bash
+pip install -r requirements.txt
+python typestorm.py
+python typestorm.py --rounds 3 --level advanced
+```
