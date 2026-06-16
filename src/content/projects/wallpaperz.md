@@ -1,9 +1,9 @@
 ---
-title: Marksub
+title: wallpaperz
 role: Tooling · Side project
 dek: Developer utility for markdown and submission workflows.
 filterTags:
-  - fullstack
+  - frontend
 cardTags:
   - Tooling
 figure: Tool preview
@@ -12,4 +12,4 @@ order: 11
 
 ## About
 
-Marksub is a small developer tool in your portfolio lineup. Replace this with what the tool actually does and who it is for.
+A place where i store my wallpapers
