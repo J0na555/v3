@@ -13,9 +13,7 @@ stack:
   - Bootstrap 5.3
   - Jikan API
   - Font Awesome 6
-links:
-  - label: Source
-    href: https://github.com/J0na555/otaku-paradise
+github: https://github.com/J0na555/otaku-paradise
 ---
 
 ## About

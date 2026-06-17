@@ -15,6 +15,7 @@ stack:
   - AniList OAuth
   - gunicorn
   - WhiteNoise
+github: https://github.com/J0na555/AniFlow
 ---
 
 ## About

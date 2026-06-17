@@ -1,13 +1,15 @@
 ---
 title: wallpaperz
 role: Tooling · Side project
-dek: Developer utility for markdown and submission workflows.
+dek: my wallpaper collections.
 filterTags:
   - frontend
 cardTags:
   - Tooling
 figure: Tool preview
 order: 11
+liveDemo: https://wallpaperz-three.vercel.app
+github: https://github.com/J0na555/wallpaperz
 ---
 
 ## About

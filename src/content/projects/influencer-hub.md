@@ -16,6 +16,7 @@ stack:
   - Supabase
   - Chapa
   - Vercel
+github: https://github.com/J0na555/influencer-hub
 ---
 
 ## About

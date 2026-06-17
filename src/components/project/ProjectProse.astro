@@ -8,11 +8,13 @@ interface Props {
 }
 
 const { project, hasNotes = false } = Astro.props;
-const { title, role, dek, stack, links, figure, notes } = project.data;
+const { title, role, dek, stack, liveDemo, github, figure, notes } =
+	project.data;
 const { Content } = await render(project);
 
 const showNotes = Boolean(notes && hasNotes);
-const showLinks = (links && links.length > 0) || showNotes;
+const showExternalLinks = Boolean(liveDemo || github);
+const showLinks = showExternalLinks || showNotes;
 ---
 
 <div class="project-prose">
@@ -43,19 +45,24 @@ const showLinks = (links && links.length > 0) || showNotes;
 			<nav class="project-links">
 				<span class="label">Links</span>
 				{
-					links?.map((link, index) => (
-						<>
-							{index > 0 && <span class="sep">·</span>}
-							<a href={link.href} target="_blank" rel="noopener noreferrer">
-								{link.label}
-							</a>
-						</>
-					))
+					liveDemo && (
+						<a href={liveDemo} target="_blank" rel="noopener noreferrer">
+							Live demo
+						</a>
+					)
+				}
+				{liveDemo && github && <span class="sep">·</span>}
+				{
+					github && (
+						<a href={github} target="_blank" rel="noopener noreferrer">
+							GitHub
+						</a>
+					)
 				}
 				{
 					showNotes && (
 						<>
-							{(links?.length ?? 0) > 0 && <span class="sep">·</span>}
+							{showExternalLinks && <span class="sep">·</span>}
 							<a href={`/writing/${notes}/`} class="is-accent">
 								Notes
 							</a>

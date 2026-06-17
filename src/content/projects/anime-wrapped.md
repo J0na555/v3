@@ -10,6 +10,8 @@ cardTags:
   - Experiment
 figure: Data viz preview
 order: 9
+liveDemo: https://anime-wrap-six.vercel.app
+github: https://github.com/J0na555/anime_wrap
 ---
 
 ## About

@@ -8,9 +8,7 @@ cardTags:
   - Full stack
 figure: App preview
 order: 10
-links:
-  - label: Source
-    href: https://github.com/J0na555
+github: https://github.com/J0na555/Resona
 ---
 
 ## About

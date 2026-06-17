@@ -16,9 +16,7 @@ stack:
   - Codeforces REST API
   - LeetCode GraphQL
   - browser.storage.local
-links:
-  - label: Source
-    href: https://github.com/J0na555/CP-Lockin
+github: https://github.com/J0na555/CP-Lockin
 ---
 
 ## About

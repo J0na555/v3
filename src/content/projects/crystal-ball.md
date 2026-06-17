@@ -12,9 +12,7 @@ stack:
   - Python
   - AST analysis
   - Git hooks
-links:
-  - label: Source
-    href: https://github.com/y0na55/commit-crystall-ball
+github: https://github.com/y0na55/commit-crystall-ball
 ---
 
 ## About

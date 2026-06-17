@@ -6,8 +6,9 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { title, dek, filterTags, cardTags } = project.data;
+const { title, dek, filterTags, cardTags, liveDemo, github } = project.data;
 const tagsAttr = filterTags.join(' ');
+const hasLinks = Boolean(liveDemo || github);
 ---
 
 <li class="project-card" data-tags={tagsAttr}>
@@ -15,6 +16,27 @@ const tagsAttr = filterTags.join(' ');
 		<a href={`/work/${project.id}/`}>{title}</a>
 	</h2>
 	{dek && <p>{dek}</p>}
+	{
+		hasLinks && (
+			<div class="card-links">
+				{
+					liveDemo && (
+						<a href={liveDemo} target="_blank" rel="noopener noreferrer">
+							Live demo
+						</a>
+					)
+				}
+				{liveDemo && github && <span class="sep">·</span>}
+				{
+					github && (
+						<a href={github} target="_blank" rel="noopener noreferrer">
+							GitHub
+						</a>
+					)
+				}
+			</div>
+		)
+	}
 	{
 		cardTags.length > 0 && (
 			<div class="card-tags">

@@ -11,9 +11,7 @@ order: 6
 stack:
   - Python
   - Rich
-links:
-  - label: Source
-    href: https://github.com/J0na555/typestorm
+github: https://github.com/J0na555/typestorm
 ---
 
 ## About

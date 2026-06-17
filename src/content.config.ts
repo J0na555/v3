@@ -10,14 +10,8 @@ const projects = defineCollection({
 		role: z.string().optional(),
 		dek: z.string().optional(),
 		stack: z.array(z.string()).optional(),
-		links: z
-			.array(
-				z.object({
-					label: z.string(),
-					href: z.string(),
-				}),
-			)
-			.optional(),
+		liveDemo: z.string().url().optional(),
+		github: z.string().url().optional(),
 		filterTags: z.array(
 			z.enum(['extension', 'fullstack', 'frontend', 'experiment']),
 		),
