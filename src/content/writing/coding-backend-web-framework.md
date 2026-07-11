@@ -4,24 +4,12 @@ date: 2026-06-10
 meta: web framework · backend · 2026
 ---
 
-# Contents
-
-> - [[#HTTP parser]]
-> - [[#Routing]]
-> - [[#Controller handlers]]
-> - [[#Middleware pipeline]]
-> - [[#Error handling]]
-> - [[#Template engine]]
-> - [[#Complete request flow]]
-> - [[#Implementation order]]
-
----
-
 ## HTTP parser
 
 **Purpose:** Convert raw socket data into a structured `Request` object.
 
 ### Raw HTTP example
+
 ```http
 GET /users?id=42 HTTP/1.1
 Host: localhost:3000
@@ -31,12 +19,14 @@ Content-Type: application/json
 ```
 
 ### Steps to implement
--  Read socket until `\r\n\r\n` (end of headers)
--  Parse request line → `method`, `path`, `version`
--  Parse headers into dict (case-insensitive keys)
--  Read body using `Content-Length` header
+
+- Read socket until `\r\n\r\n` (end of headers)
+- Parse request line → `method`, `path`, `version`
+- Parse headers into dict (case-insensitive keys)
+- Read body using `Content-Length` header
 
 ### Code skeleton
+
 ```python
 class Request:
     def __init__(self, raw_bytes: bytes):
@@ -49,10 +39,11 @@ class Request:
 ```
 
 ### Edge cases
--  Missing headers
--  Chunked transfer encoding
--  Large bodies (need streaming)
--  URL-encoded query params
+
+- Missing headers
+- Chunked transfer encoding
+- Large bodies (need streaming)
+- URL-encoded query params
 
 **Related:** [[#Routing]] | [[#Error handling]]
 
@@ -63,6 +54,7 @@ class Request:
 **Purpose:** Map `(method, path)` to a controller handler.
 
 ### Route table design
+
 ```python
 routes = {}  # key: (method, path_pattern) -> handler
 
@@ -71,18 +63,21 @@ def add_route(method, path, handler):
 ```
 
 ### Path parameter support
+
 | Pattern      | Example            | Captured         |
 | ------------ | ------------------ | ---------------- |
 | `/users/:id` | `/users/42`        | `id=42`          |
 | `/files/*`   | `/files/js/app.js` | wildcard capture |
 
 ### Matching logic (priority order)
+
 1. Static routes (exact match)
 2. Parameterized routes (extract `:param`)
 3. Wildcard routes (`*`)
 4. 404 if none match
 
 ### Expansion ideas
+
 - Trie/radix tree for performance
 - Reverse routing (generate URL from route name)
 - Route groups/prefixes
@@ -96,6 +91,7 @@ def add_route(method, path, handler):
 **Purpose:** User code that processes a request and returns a response.
 
 ### Handler signature
+
 ```python
 def handler(request: Request) -> Response:
     # request has .params for path params
@@ -104,6 +100,7 @@ def handler(request: Request) -> Response:
 ```
 
 ### Response class skeleton
+
 ```python
 class Response:
     def __init__(self, body="", status=200, headers=None, content_type="text/html"):
@@ -118,6 +115,7 @@ class Response:
 ```
 
 ### Common helpers to provide
+
 - `render_template(name, context)` → returns HTML Response
 - `json_response(data, status=200)` → returns JSON Response
 - `redirect(url, status=302)` → returns redirect Response
@@ -131,11 +129,13 @@ class Response:
 **Definition:** Functions that run before (and optionally after) the controller.
 
 ### Pipeline flow
+
 ```
 Request → Middleware1 → Middleware2 → Handler → Middleware2 → Middleware1 → Response
 ```
 
 ### Implementation pattern
+
 ```python
 class Pipeline:
     def __init__(self):
@@ -154,6 +154,7 @@ class Pipeline:
 ```
 
 ### Middleware example
+
 ```python
 def logger_middleware(request, next_middleware):
     print(f"→ {request.method} {request.path}")
@@ -163,6 +164,7 @@ def logger_middleware(request, next_middleware):
 ```
 
 ### Built-in middleware ideas
+
 - Logger
 - Auth (sets `request.user`)
 - CORS
@@ -176,6 +178,7 @@ def logger_middleware(request, next_middleware):
 ## Error handling
 
 ### Error types to handle
+
 | Error                   | HTTP Status | When                          |
 | ----------------------- | ----------- | ----------------------------- |
 | `RouteNotFoundError`    | 404         | No route matches              |
@@ -184,6 +187,7 @@ def logger_middleware(request, next_middleware):
 | `InternalError`         | 500         | Uncaught exception            |
 
 ### Centralized handler
+
 ```python
 def handle_error(error, request) -> Response:
     if isinstance(error, RouteNotFoundError):
@@ -195,6 +199,7 @@ def handle_error(error, request) -> Response:
 ```
 
 ### Try-catch wrapper
+
 ```python
 def process_request(raw_bytes):
     try:
@@ -207,6 +212,7 @@ def process_request(raw_bytes):
 ```
 
 ### Dev vs Production
+
 - **Dev:** return full stack trace + error details
 - **Production:** log internally, return minimal safe message
 
@@ -219,6 +225,7 @@ def process_request(raw_bytes):
 **Purpose:** Render dynamic HTML using template files + context data.
 
 ### Folder structure
+
 ```
 templates/
   ├── layout.html
@@ -228,6 +235,7 @@ templates/
 ```
 
 ### Simple engine implementation
+
 ```python
 class TemplateEngine:
     def __init__(self, template_dir="templates"):
@@ -243,6 +251,7 @@ class TemplateEngine:
 ```
 
 ### Integration with framework
+
 ```python
 def render_template(template_name, context):
     content = engine.render(template_name, context)
@@ -250,6 +259,7 @@ def render_template(template_name, context):
 ```
 
 ### Expansion ideas
+
 - Template inheritance (`{% extends %}`)
 - Auto-escaping (XSS prevention)
 - Caching compiled templates
@@ -301,11 +311,11 @@ def render_template(template_name, context):
 
 ## Quick reference table
 
-| Component | Input | Output |
-|-----------|-------|--------|
-| HTTP parser | raw bytes | `Request` |
-| Router | `Request` | handler function |
-| Middleware | `Request` | `Request` or `Response` |
-| Handler | `Request` | `Response` |
-| Error handler | Exception | `Response` |
-| Template engine | template name + context | HTML string |
+| Component       | Input                   | Output                  |
+| --------------- | ----------------------- | ----------------------- |
+| HTTP parser     | raw bytes               | `Request`               |
+| Router          | `Request`               | handler function        |
+| Middleware      | `Request`               | `Request` or `Response` |
+| Handler         | `Request`               | `Response`              |
+| Error handler   | Exception               | `Response`              |
+| Template engine | template name + context | HTML string             |
