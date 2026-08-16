@@ -7,7 +7,7 @@ filterTags:
 cardTags:
   - Full stack
 figure: Dashboard with anime library, progress, and watch links
-order: 4
+order: 9
 stack:
   - Python 3.12
   - Django 5.2

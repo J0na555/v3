@@ -12,8 +12,10 @@ const projects = defineCollection({
 		stack: z.array(z.string()).optional(),
 		liveDemo: z.string().url().optional(),
 		github: z.string().url().optional(),
+		client: z.string().optional(),
+		caseStudy: z.string().url().optional(),
 		filterTags: z.array(
-			z.enum(['extension', 'fullstack', 'frontend', 'experiment']),
+			z.enum(['extension', 'fullstack', 'frontend', 'experiment', 'client']),
 		),
 		cardTags: z.array(z.string()),
 		figure: z.string().optional(),

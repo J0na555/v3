@@ -7,7 +7,7 @@ filterTags:
 cardTags:
   - Full stack
 figure: Dashboard with scored leads, audit status, and outreach filters
-order: 3
+order: 8
 stack:
   - FastAPI
   - SQLAlchemy

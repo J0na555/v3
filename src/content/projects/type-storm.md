@@ -7,7 +7,7 @@ filterTags:
 cardTags:
   - CLI Tool
 figure: Terminal with syntax-highlighted snippet and typing metrics
-order: 6
+order: 12
 stack:
   - Python
   - Rich

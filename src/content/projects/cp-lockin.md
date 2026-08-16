@@ -8,7 +8,7 @@ cardTags:
   - Extension
   - Dev Tool
 figure: Dashboard with 52-week heatmap (gold, blue, green by platform)
-order: 1
+order: 13
 notes: cp-lockin
 stack:
   - JavaScript

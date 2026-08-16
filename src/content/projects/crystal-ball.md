@@ -7,7 +7,7 @@ filterTags:
 cardTags:
   - Dev Tool
 figure: Terminal output blocking a commit on a HIGH severity finding
-order: 7
+order: 10
 stack:
   - Python
   - AST analysis

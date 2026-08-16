@@ -8,7 +8,7 @@ filterTags:
 cardTags:
   - Dev Tool
 figure: Terminal session with routed LLM context and skill preamble
-order: 2
+order: 11
 github: https://github.com/J0na555/deep-tutor
 ---
 

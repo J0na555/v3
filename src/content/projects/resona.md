@@ -7,7 +7,7 @@ filterTags:
 cardTags:
   - Full stack
 figure: App preview
-order: 10
+order: 14
 github: https://github.com/J0na555/Resona
 ---
 
