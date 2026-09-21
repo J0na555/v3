@@ -74,6 +74,14 @@ body:has(.page) a {
   font-size: 11px;
   font-family: ui-monospace, Menlo, monospace;
   letter-spacing: 0.04em;
+  transition:
+    transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.45),
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.status-pill:hover {
+  transform: translateY(-2px) scale(1.05);
 }
 
 .status-pill::before {
