@@ -10,8 +10,8 @@ const projects = (await getCollection('projects')).sort(
 ---
 
 <PageLayout title="Work — Jonas">
-	<h1>Projects</h1>
-	<p class="intro">
+	<h1 data-reveal>Projects</h1>
+	<p class="intro" data-reveal>
 		Selected work from my dev portfolio — client sites, extensions, full-stack apps, and experiments.
 	</p>
 	<ProjectFilters />
@@ -42,13 +42,21 @@ const projects = (await getCollection('projects')).sort(
 			}
 
 			function applyFilters() {
+				let visibleIdx = 0;
 				cards.forEach((card) => {
+					let matches = false;
 					if (active.has('all')) {
-						card.hidden = false;
-						return;
+						matches = true;
+					} else {
+						const tags = (card.dataset.tags ?? '').split(/\s+/).filter(Boolean);
+						matches = tags.some((tag) => active.has(tag));
 					}
-					const tags = (card.dataset.tags ?? '').split(/\s+/).filter(Boolean);
-					card.hidden = !tags.some((tag) => active.has(tag));
+					card.hidden = !matches;
+					if (matches) {
+						card.style.setProperty('--reveal-delay', `${visibleIdx * 40}ms`);
+						card.classList.add('data-inview');
+						visibleIdx++;
+					}
 				});
 			}
 

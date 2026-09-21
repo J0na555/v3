@@ -188,10 +188,18 @@ html:not(.theme-light) .skills span:hover {
 }
 
 .project-card {
+	position: relative;
 	border-top: 1px solid var(--border);
-	padding: 1.5rem 0;
+	padding: 1.5rem 0.75rem;
+	margin: 0 -0.75rem;
+	border-radius: 4px;
 	display: grid;
 	gap: 0.75rem;
+	cursor: pointer;
+	transition:
+		opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+		border-color 0.25s ease,
+		background-color 0.25s ease;
 }
 
 .project-card:last-child {
@@ -199,7 +207,21 @@ html:not(.theme-light) .skills span:hover {
 }
 
 .project-card[hidden] {
-	display: none;
+	display: none !important;
+}
+
+/* Sibling focus dimming on hover */
+.project-grid:hover .project-card:not(:hover) {
+	opacity: 0.5;
+}
+
+.project-card:hover {
+	border-color: var(--muted);
+	background-color: rgba(255, 255, 255, 0.02);
+}
+
+html.theme-light .project-card:hover {
+	background-color: rgba(0, 0, 0, 0.015);
 }
 
 .project-card h2 {
@@ -207,8 +229,45 @@ html:not(.theme-light) .skills span:hover {
 	font-weight: 500;
 }
 
-.project-card h2 a:hover {
+.project-title-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	color: var(--fg);
+}
+
+/* Stretched link pattern: makes the whole card surface clickable */
+.project-title-link::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+}
+
+.project-arrow {
+	display: inline-block;
+	font-size: 0.95em;
+	color: var(--muted);
+	opacity: 0.6;
+	transition:
+		transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+		color 0.25s ease,
+		opacity 0.25s ease;
+}
+
+.project-card:hover .project-arrow,
+.project-title-link:hover .project-arrow {
+	transform: translateX(5px);
+	opacity: 1;
 	color: var(--accent);
+}
+
+html:not(.theme-light) .project-card:hover .project-title-link {
+	color: var(--accent);
+}
+
+html.theme-light .project-card:hover .project-title-link {
+	color: #000;
 }
 
 .project-card p {
@@ -223,6 +282,13 @@ html:not(.theme-light) .skills span:hover {
 	align-items: center;
 	gap: 0.5rem 0.75rem;
 	font-size: 13px;
+	position: relative;
+	z-index: 2;
+}
+
+.card-links a {
+	position: relative;
+	z-index: 2;
 }
 
 .card-links a:hover {

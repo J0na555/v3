@@ -14,33 +14,37 @@
 	import { THEME_STORAGE_KEY, applyDocumentTheme } from '../lib/theme';
 	import { playThemeToggleSound, warmThemeSound } from '../lib/theme-sound';
 
-	function syncToggleLabels(light: boolean) {
-		const label = light ? 'Switch to dark mode' : 'Switch to light mode';
+	function syncToggleState() {
+		const isLight = document.documentElement.classList.contains('theme-light');
+		const label = isLight ? 'Switch to dark mode' : 'Switch to light mode';
 		document.querySelectorAll('.theme-btn').forEach((button) => {
 			button.setAttribute('aria-label', label);
 		});
 	}
 
-	function setTheme(light: boolean) {
-		applyDocumentTheme(light);
-		syncToggleLabels(light);
-		document.dispatchEvent(
-			new CustomEvent('themechange', { detail: { light } }),
-		);
+	function bindToggleButtons() {
+		document.querySelectorAll<HTMLButtonElement>('.theme-btn').forEach((button) => {
+			if (button.dataset.bound === 'true') return;
+			button.dataset.bound = 'true';
+
+			button.addEventListener('pointerdown', () => warmThemeSound(), {
+				passive: true,
+			});
+			button.addEventListener('click', () => {
+				playThemeToggleSound();
+				const next = !document.documentElement.classList.contains('theme-light');
+				localStorage.setItem(THEME_STORAGE_KEY, next ? 'light' : 'dark');
+				applyDocumentTheme(next);
+				syncToggleState();
+				document.dispatchEvent(
+					new CustomEvent('themechange', { detail: { light: next } }),
+				);
+			});
+		});
+		syncToggleState();
 	}
 
-	document.querySelectorAll('.theme-btn').forEach((button) => {
-		syncToggleLabels(
-			document.documentElement.classList.contains('theme-light'),
-		);
-		button.addEventListener('pointerdown', () => warmThemeSound(), {
-			passive: true,
-		});
-		button.addEventListener('click', () => {
-			playThemeToggleSound();
-			const next = !document.documentElement.classList.contains('theme-light');
-			localStorage.setItem(THEME_STORAGE_KEY, next ? 'light' : 'dark');
-			setTheme(next);
-		});
-	});
+	bindToggleButtons();
+	document.addEventListener('astro:page-load', bindToggleButtons);
+	document.addEventListener('astro:after-swap', syncToggleState);
 </script>

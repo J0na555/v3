@@ -12,9 +12,12 @@ const tagsAttr = filterTags.join(' ');
 const hasLinks = Boolean(liveDemo || github || caseStudy);
 ---
 
-<li class="project-card" data-tags={tagsAttr}>
+<li class="project-card" data-tags={tagsAttr} data-reveal>
 	<h2>
-		<a href={`/work/${project.id}/`}>{title}</a>
+		<a href={`/work/${project.id}/`} class="project-title-link">
+			<span class="title-text">{title}</span>
+			<span class="project-arrow" aria-hidden="true">→</span>
+		</a>
 	</h2>
 	{dek && <p>{dek}</p>}
 	{

@@ -1,4 +1,16 @@
-<section class="heatmap" aria-label="GitHub contribution activity">
+---
+let svgContent = '';
+try {
+	const res = await fetch('https://ghchart.rshah.org/555555/J0na555');
+	if (res.ok) {
+		svgContent = await res.text();
+	}
+} catch (e) {
+	console.error('Failed to fetch GitHub heatmap SVG', e);
+}
+---
+
+<section class="heatmap" aria-label="GitHub contribution activity" data-reveal>
 	<p class="heatmap-label">
 		<a href="https://github.com/J0na555" target="_blank" rel="noopener noreferrer"
 			>@J0na555</a
@@ -11,13 +23,19 @@
 		rel="noopener noreferrer"
 		title="View GitHub profile"
 	>
-		<img
-			src="https://ghchart.rshah.org/000000/J0na555"
-			alt="GitHub contribution graph for J0na555"
-			width="663"
-			height="104"
-			loading="lazy"
-			decoding="async"
-		/>
+		{
+			svgContent ? (
+				<Fragment set:html={svgContent} />
+			) : (
+				<img
+					src="https://ghchart.rshah.org/555555/J0na555"
+					alt="GitHub contribution graph for J0na555"
+					width="663"
+					height="104"
+					loading="lazy"
+					decoding="async"
+				/>
+			)
+		}
 	</a>
 </section>
