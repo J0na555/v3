@@ -1,7 +1,7 @@
 ---
 title: Aizen — Universal Task Orchestrator
 date: 2026-06-27
-meta: ai · workflows · DAG
+meta: ai · workflows · DAG · 2026
 ---
 
 # Aizen 

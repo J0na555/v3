@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '../styles/tokens.css';
 import '../styles/global.css';
 
@@ -14,17 +15,58 @@ const { title = 'Jonas', description = 'Portfolio' } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<ClientRouter />
 		<script is:inline>
 			(function () {
-				try {
-					var stored = localStorage.getItem('theme');
-					var light =
-						stored === 'light' ||
-						(stored !== 'dark' &&
-							window.matchMedia('(prefers-color-scheme: light)').matches);
-					if (light) document.documentElement.classList.add('theme-light');
-				} catch (_) {}
+				function applyTheme() {
+					try {
+						var stored = localStorage.getItem('theme');
+						var light =
+							stored === 'light' ||
+							(stored !== 'dark' &&
+								window.matchMedia('(prefers-color-scheme: light)').matches);
+						if (light) {
+							document.documentElement.classList.add('theme-light');
+						} else {
+							document.documentElement.classList.remove('theme-light');
+						}
+					} catch (_) {}
+				}
+				applyTheme();
+				document.addEventListener('astro:after-swap', applyTheme);
 			})();
+		</script>
+		<script is:inline>
+			function initReveal() {
+				if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+				var elements = Array.from(document.querySelectorAll('[data-reveal]'));
+				if (!elements.length) return;
+
+				var observer = new IntersectionObserver(
+					function (entries) {
+						var visible = entries.filter(function (e) { return e.isIntersecting; });
+						visible.forEach(function (entry, idx) {
+							var el = entry.target;
+							if (!el.style.getPropertyValue('--reveal-delay')) {
+								el.style.setProperty('--reveal-delay', (idx * 40) + 'ms');
+							}
+							el.classList.add('data-inview');
+							observer.unobserve(el);
+						});
+					},
+					{ rootMargin: '0px 0px -5% 0px', threshold: 0.01 }
+				);
+
+				elements.forEach(function (el) {
+					if (!el.classList.contains('data-inview')) {
+						observer.observe(el);
+					}
+				});
+			}
+
+			if (document.readyState !== 'loading') initReveal();
+			else document.addEventListener('DOMContentLoaded', initReveal);
+			document.addEventListener('astro:page-load', initReveal);
 		</script>
 		<style is:inline>
 			.page {

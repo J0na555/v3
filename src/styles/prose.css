@@ -117,16 +117,19 @@ h1 {
 	border: 1px solid var(--border);
 	border-radius: 2px;
 	color: var(--muted);
+	cursor: pointer;
 	transition:
-		color 0.14s,
-		border-color 0.14s,
-		background 0.14s;
+		transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.45),
+		color 0.14s ease,
+		border-color 0.14s ease,
+		background 0.14s ease;
 }
 
 .skills span:hover {
 	color: var(--fg);
 	border-color: var(--muted);
 	background: var(--pill-bg);
+	transform: translateY(-2px) scale(1.06);
 }
 
 html:not(.theme-light) .skills span:hover {
@@ -165,13 +168,15 @@ html:not(.theme-light) .skills span:hover {
 	color: var(--muted);
 	cursor: pointer;
 	transition:
-		color 0.14s,
-		border-color 0.14s,
-		background 0.14s;
+		transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.45),
+		color 0.14s ease,
+		border-color 0.14s ease,
+		background 0.14s ease;
 }
 
 .tag:hover {
 	color: var(--fg);
+	transform: translateY(-2px) scale(1.06);
 }
 
 .tag.is-on {
@@ -188,10 +193,19 @@ html:not(.theme-light) .skills span:hover {
 }
 
 .project-card {
+	position: relative;
 	border-top: 1px solid var(--border);
-	padding: 1.5rem 0;
+	padding: 1.5rem 0.75rem;
+	margin: 0 -0.75rem;
+	border-radius: 4px;
 	display: grid;
 	gap: 0.75rem;
+	cursor: pointer;
+	transition:
+		transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.45),
+		opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+		border-color 0.25s ease,
+		background-color 0.25s ease;
 }
 
 .project-card:last-child {
@@ -199,7 +213,22 @@ html:not(.theme-light) .skills span:hover {
 }
 
 .project-card[hidden] {
-	display: none;
+	display: none !important;
+}
+
+/* Sibling focus dimming on hover */
+.project-grid:hover .project-card:not(:hover) {
+	opacity: 0.5;
+}
+
+.project-card:hover {
+	transform: translateY(-4px) scale(1.015);
+	border-color: var(--muted);
+	background-color: rgba(255, 255, 255, 0.02);
+}
+
+html.theme-light .project-card:hover {
+	background-color: rgba(0, 0, 0, 0.015);
 }
 
 .project-card h2 {
@@ -207,8 +236,45 @@ html:not(.theme-light) .skills span:hover {
 	font-weight: 500;
 }
 
-.project-card h2 a:hover {
+.project-title-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	color: var(--fg);
+}
+
+/* Stretched link pattern: makes the whole card surface clickable */
+.project-title-link::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+}
+
+.project-arrow {
+	display: inline-block;
+	font-size: 0.95em;
+	color: var(--muted);
+	opacity: 0.6;
+	transition:
+		transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.45),
+		color 0.25s ease,
+		opacity 0.25s ease;
+}
+
+.project-card:hover .project-arrow,
+.project-title-link:hover .project-arrow {
+	transform: translateX(6px) scale(1.25);
+	opacity: 1;
 	color: var(--accent);
+}
+
+html:not(.theme-light) .project-card:hover .project-title-link {
+	color: var(--accent);
+}
+
+html.theme-light .project-card:hover .project-title-link {
+	color: #000;
 }
 
 .project-card p {
@@ -223,6 +289,13 @@ html:not(.theme-light) .skills span:hover {
 	align-items: center;
 	gap: 0.5rem 0.75rem;
 	font-size: 13px;
+	position: relative;
+	z-index: 2;
+}
+
+.card-links a {
+	position: relative;
+	z-index: 2;
 }
 
 .card-links a:hover {
@@ -252,6 +325,19 @@ html.theme-light .card-links a {
 	padding: 0.15rem 0.45rem;
 	border: 1px solid var(--border);
 	border-radius: 2px;
+	cursor: pointer;
+	transition:
+		transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.45),
+		color 0.14s ease,
+		border-color 0.14s ease,
+		background 0.14s ease;
+}
+
+.card-tags span:hover {
+	color: var(--fg);
+	border-color: var(--muted);
+	background: var(--pill-bg);
+	transform: translateY(-2px) scale(1.06);
 }
 
 /* Project detail */
@@ -349,6 +435,20 @@ html.theme-light .card-links a {
 	padding: 0.2rem 0.5rem;
 	border: 1px solid var(--border);
 	border-radius: 2px;
+	cursor: pointer;
+	transition:
+		transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.45),
+		color 0.14s ease,
+		border-color 0.14s ease,
+		background 0.14s ease;
+}
+
+.stack-tags span:hover,
+.project-prose .stack li:hover {
+	color: var(--fg);
+	border-color: var(--muted);
+	background: var(--pill-bg);
+	transform: translateY(-2px) scale(1.06);
 }
 
 .project-links,
@@ -411,6 +511,12 @@ html.theme-light .project-links a.is-accent {
 .note-list li,
 .writing-list li {
 	border-top: 1px solid var(--border);
+	transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.note-list:hover li:not(:hover),
+.writing-list:hover li:not(:hover) {
+	opacity: 0.5;
 }
 
 .note-list li:last-child,
@@ -421,9 +527,35 @@ html.theme-light .project-links a.is-accent {
 .note-link,
 .writing-list a {
 	display: block;
-	padding: 1.25rem 0;
-	transition: color 0.14s;
+	padding: 1.25rem 0.75rem;
+	margin: 0 -0.75rem;
+	border-radius: 4px;
 	text-decoration: none;
+	transition:
+		transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.45),
+		color 0.2s ease,
+		background-color 0.25s ease;
+}
+
+.note-link:hover,
+.writing-list a:hover {
+	transform: translateY(-4px) scale(1.015);
+	background-color: rgba(255, 255, 255, 0.02);
+}
+
+.note-link:hover h2,
+.writing-list a:hover h2 {
+	color: var(--accent);
+}
+
+html.theme-light .note-link:hover,
+html.theme-light .writing-list a:hover {
+	background-color: rgba(0, 0, 0, 0.015);
+}
+
+html.theme-light .note-link:hover h2,
+html.theme-light .writing-list a:hover h2 {
+	color: #000;
 }
 
 .note-link h2 {
