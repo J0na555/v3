@@ -435,6 +435,10 @@ html.theme-light .social-footer a:hover {
     align-items: flex-end;
   }
 
+  .heatmap {
+    padding: 0.75rem 0.85rem;
+  }
+
   .heatmap-graph img {
     max-width: 100%;
   }

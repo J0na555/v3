@@ -4,6 +4,9 @@ try {
 	const res = await fetch('https://ghchart.rshah.org/555555/J0na555');
 	if (res.ok) {
 		svgContent = await res.text();
+		if (svgContent && !svgContent.includes('viewBox')) {
+			svgContent = svgContent.replace('<svg', '<svg viewBox="0 0 663 104"');
+		}
 	}
 } catch (e) {
 	console.error('Failed to fetch GitHub heatmap SVG', e);
